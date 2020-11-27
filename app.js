@@ -165,7 +165,7 @@ app.post("/register", function (req, res) {
         req.body.password, function (err, user) {
             if (err) {
                 console.log(err);
-                res.redirect("signUp");
+                res.redirect("/register");
             } else {
                 const blogger = new userInfo({
                     name: req.body.name,
