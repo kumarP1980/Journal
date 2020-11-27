@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script type="text/javascript" src="scripts/pwstrength.js"></script>
+<body class="text-center">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+
+        <ul class="nav navbar-nav navbar-right">
+          <!-- 6 -->
+          <li id="home"><a href="/">Home</a></li>
+        </ul>
+
+      </div>
+    </nav>
+    <form action="/register" method="POST" class="form-signin">
+      <h1 class="h3 mb-3 font-weight-normal">Please Sign Up!</h1>
+      <label for="name" class="sr-only">Name</label>
+      <input type="text" name="name" class="form-control" placeholder="Name" required autofocus>
+      <label for="email" class="sr-only">Email</label>
+      <input type="email" name="email" class="form-control" placeholder="Email" required>
+      <label for="username" class="sr-only">Username</label>
+      <input type="username" name="userName" class="form-control" placeholder="Username" required autofocus>
+      <label for="password" class="sr-only">Password</label>
+      <input type="password" name="password" class="form-control" placeholder="Password" required>
+      <div class="pwstrength_viewport_progress"></div>
+      <div id="messages" class="col-sm-4"></div>
+      <button type="submit" class="btn btn-primary btn-sm">Sign Up</button>
+      <button type="reset" class="btn btn-primary btn-sm">Reset</button>
+    </form>
+  </div>
+</body>
+
+</html>

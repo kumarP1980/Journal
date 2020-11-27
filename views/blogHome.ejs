@@ -1,0 +1,14 @@
+<%- include('partials/header_home'); %>
+<h1>Home</h1>
+<div class="button">
+    <form class="" action="/compose" method="get">
+      <button type="submit" name="button" class="btn btn-primary btn-sm">Compose Blog</button>
+    </form>
+  </div>
+<%  blogJournal.forEach(function(blogs){ %>
+<h3> <%= blogs.title %> (<%= blogs.date %>)</h3>
+<p>
+  <%- blogs.blog.substring(0,100) + "..." %>
+  <a href="/post/<%= blogs._id %>">Read More</a>
+</p>
+<% }); %>
