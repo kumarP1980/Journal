@@ -197,14 +197,46 @@ app.get("/logout", function (req, res) {
   res.redirect("/");
 });
 
-app.get("/about", function (req, res) {
-  res.render('about');
+// Define Reset Password
+app.get("/resetPass", function (req, res) {
+  const msg = "";
+  res.render('resetPassword',{
+    msg:msg
+  });
+});
+
+app.post("/resetPass", function (req, res) {
+  const username = req.body.userName;
+  const message = "Username " + username + " doesn't exist.";
+  const users = mongoose.model("User", userSchema);
+  users.findOne({ "username": { $eq: username } }, function (err, userData) {
+    if (err) {
+      console.log(err);
+     res.redirect("/resetPass");
+    } 
+    if (!userData) {
+      res.render('resetPassword',{
+        msg:message
+      });
+    } else {
+      userData.setPassword(req.body.password, function (err, user) {
+        if (err) {
+          console.log(err);
+          res.redirect("/resetPass");
+        } else {
+          userData.save();
+          res.redirect("/login");
+        }
+      });
+    }
+  });  
 });
 
 app.get("/contact", function (req, res) {
   res.render('contact');
 });
 
+// Define compose
 app.get("/compose", function (req, res) {
   res.render('compose', {
     user: nameofUser,
