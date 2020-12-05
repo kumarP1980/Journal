@@ -1,5 +1,5 @@
 //jshint esversion:6
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -35,7 +35,7 @@ app.use(passport.session());
 var mongoose = require('mongoose');
 // Connection URL
 //const url = 'mongodb://localhost:27017';
-const url = 'mongodb+srv://admin-kumar:provider852@cluster-blog-cj9jb.mongodb.net';
+const url = 'mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster-blog-cj9jb.mongodb.net';
 // Database Name
 const dbName = 'dailyJournal';
 mongoose.connect(url + "/" + dbName, {
