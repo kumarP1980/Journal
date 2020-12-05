@@ -186,7 +186,8 @@ app.get("/post/:blogDay", function (req, res) {
     res.render("post", {
       title: blogs.title,
       blogText: blogs.blog,
-      name: bloggerName
+      name: bloggerName,
+      id:blogs._id
     });
   });
 });
@@ -271,6 +272,56 @@ app.post("/compose", function (req, res) {
 
   });
 });
+
+//Define Edit Route
+app.get("/editPost/:blogID", function (req, res) {
+  const requestedBlogId = req.params.blogID;
+  const Blog = mongoose.model('Blog', blogSchema);
+  Blog.findOne({
+    _id: requestedBlogId
+  }, function (err, blogs) {
+    res.render("editPost", {
+      title: blogs.title,
+      blogText: blogs.blog,
+      name: bloggerName,
+      user: nameofUser,
+      id:blogs._id
+    });
+  });
+});
+
+app.get("/editPost", function (req, res) {
+  const requestedBlogId = req.params.blogID;
+  const Blog = mongoose.model('Blog', blogSchema);
+  Blog.findOne({
+    _id: requestedBlogId
+  }, function (err, blogs) {
+    res.render("editPost", {
+      title: blogs.title,
+      blogText: blogs.blog,
+      name: bloggerName,
+      user: nameofUser,
+      id:blogs._id
+    });
+  });
+});
+
+//Define Modify Route
+app.post("/editPost", function (req, res) {
+  const Blog = mongoose.model('Blog', blogSchema);
+  let requestedBlogId = req.body.blogID;
+  let title = req.body.title;
+  let blogData = req.sanitize(req.body.body.content);
+  const filter = { _id: requestedBlogId };
+  const update = { title: title, blog: blogData};
+  mongoose.set('useFindAndModify', false);
+  Blog.findOneAndUpdate(filter, update, function (err, person) {
+  });
+  if (req.isAuthenticated()) {
+      res.redirect("/blogHome");
+  }
+});
+
 app.listen(process.env.PORT || 3050, function () {
   console.log("Sever has started on port 3050......");
 });

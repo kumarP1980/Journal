@@ -1,4 +1,10 @@
 <%- include('partials/header_home'); %>
+<input type="hidden" name="blogID" value="<%=id%>" />
+<div class="button">
+    <form class="" action="/editPost/<%=id%>" method="get">
+      <button type="submit" name="button" class="btn btn-primary btn-sm">Edit</button>
+    </form>
+  </div>  
 <h1><%= title %></h1>
 <p> <%- blogText %> </p>
 
