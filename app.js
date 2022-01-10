@@ -71,7 +71,8 @@ const blogSchema = new mongoose.Schema({
   title: String,
   blog: String,
   username: String,
-  date: String
+  date: String,
+  sortDate : Date
 });
 
 // Home Route
@@ -96,13 +97,13 @@ app.get("/blogHome", function (req, res) {
     Blog.find({ "username": { $eq: userName } }, function (err, blogs) {
       if (err) {
         console.error(err);
-      } else {
-        res.render('blogHome', {
+      } else {        
+          res.render('blogHome', {
           blogJournal: blogs,
           name: bloggerName
         });
       }
-    });
+    }).sort({sortDate : -1});
   }
 });
 
@@ -285,7 +286,8 @@ app.get("/editPost/:blogID", function (req, res) {
       blogText: blogs.blog,
       name: bloggerName,
       user: nameofUser,
-      id:blogs._id
+      id:blogs._id,
+      date: blogs.date
     });
   });
 });
@@ -301,7 +303,8 @@ app.get("/editPost", function (req, res) {
       blogText: blogs.blog,
       name: bloggerName,
       user: nameofUser,
-      id:blogs._id
+      id:blogs._id,
+      date: blogs.date
     });
   });
 });
@@ -311,7 +314,7 @@ app.post("/editPost", function (req, res) {
   const Blog = mongoose.model('Blog', blogSchema);
   let requestedBlogId = req.body.blogID;
   let title = req.body.title;
-  let blogData = req.sanitize(req.body.body.content);
+  let blogData = req.sanitize(req.body.body.content);    
   const filter = { _id: requestedBlogId };
   const update = { title: title, blog: blogData};
   mongoose.set('useFindAndModify', false);
