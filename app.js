@@ -261,7 +261,8 @@ app.post("/compose", function (req, res) {
     title: req.body.title,
     blog: blogData,
     date: today,
-    username: req.body.user
+    username: req.body.user,
+    sortDate: Date.now()
   });
   blog.save(function (err) {
 

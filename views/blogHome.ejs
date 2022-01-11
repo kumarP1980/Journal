@@ -8,7 +8,7 @@
 <%  blogJournal.forEach(function(blogs){ %>
 <h3> <%= blogs.title %> (<%= blogs.date %>)</h3>
 <p>
-  <%- blogs.blog.substring(0,100) + "..." %>
+  <%- blogs.blog.substring(0,80) + "..." %>
   <a href="/post/<%= blogs._id %>">Read More</a>
 </p>
 <% }); %>
